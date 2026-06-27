@@ -64,35 +64,48 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-function PrimaryButton({
-  children,
-  className = "",
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+const PRIMARY_CLS =
+  "inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-orange transition-all hover:bg-primary-hover hover:-translate-y-0.5";
+const SECONDARY_CLS =
+  "inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-6 py-3.5 text-sm font-semibold text-ink transition-all hover:border-ink/30 hover:bg-surface";
+
+type LinkBtnProps = {
+  children: React.ReactNode;
+  href: string;
+  className?: string;
+  external?: boolean;
+};
+
+function PrimaryLink({ children, href, className = "", external }: LinkBtnProps) {
+  const ext = external ?? /^https?:/.test(href);
   return (
-    <button
-      {...props}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-orange transition-all hover:bg-primary-hover hover:-translate-y-0.5 ${className}`}
+    <a
+      href={href}
+      {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={`${PRIMARY_CLS} ${className}`}
     >
       {children}
-    </button>
+    </a>
   );
 }
 
-function SecondaryButton({
-  children,
-  className = "",
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+function SecondaryLink({ children, href, className = "", external }: LinkBtnProps) {
+  const ext = external ?? /^https?:/.test(href);
   return (
-    <button
-      {...props}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-6 py-3.5 text-sm font-semibold text-ink transition-all hover:border-ink/30 hover:bg-surface ${className}`}
+    <a
+      href={href}
+      {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={`${SECONDARY_CLS} ${className}`}
     >
       {children}
-    </button>
+    </a>
   );
 }
+
+const SIGNUP_URL = "https://motor-em-dia.vercel.app/cadastro";
+const LOGIN_URL = "https://motor-em-dia.vercel.app/login";
+const WHATSAPP_URL =
+  "https://wa.me/5531971464759?text=Ol%C3%A1%21%20Tenho%20interesse%20no%20Motor%20em%20Dia%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20sistema%20para%20oficinas.";
 
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
