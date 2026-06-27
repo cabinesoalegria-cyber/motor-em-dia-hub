@@ -647,10 +647,33 @@ function Footer() {
           <span className="text-sm text-ink-soft">© 2026 Motor em Dia. Todos os direitos reservados.</span>
         </div>
         <div className="flex items-center gap-6 text-sm font-medium text-ink">
-          <a href="#login" className="hover:text-primary">Entrar</a>
-          <a href="#signup" className="hover:text-primary">Criar conta grátis</a>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 hover:text-emerald-600"
+          >
+            <MessageCircle className="h-4 w-4 text-emerald-600" />
+            WhatsApp
+          </a>
+          <a href={LOGIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary">Entrar</a>
+          <a href={SIGNUP_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary">Criar conta grátis</a>
         </div>
       </Container>
     </footer>
+  );
+}
+
+function WhatsAppFloat() {
+  return (
+    <a
+      href={WHATSAPP_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Falar no WhatsApp"
+      className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-elevated transition-transform hover:scale-105 hover:bg-emerald-600"
+    >
+      <MessageCircle className="h-6 w-6" strokeWidth={2.2} />
+    </a>
   );
 }
