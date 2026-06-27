@@ -64,35 +64,48 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-function PrimaryButton({
-  children,
-  className = "",
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+const PRIMARY_CLS =
+  "inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-orange transition-all hover:bg-primary-hover hover:-translate-y-0.5";
+const SECONDARY_CLS =
+  "inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-6 py-3.5 text-sm font-semibold text-ink transition-all hover:border-ink/30 hover:bg-surface";
+
+type LinkBtnProps = {
+  children: React.ReactNode;
+  href: string;
+  className?: string;
+  external?: boolean;
+};
+
+function PrimaryLink({ children, href, className = "", external }: LinkBtnProps) {
+  const ext = external ?? /^https?:/.test(href);
   return (
-    <button
-      {...props}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-orange transition-all hover:bg-primary-hover hover:-translate-y-0.5 ${className}`}
+    <a
+      href={href}
+      {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={`${PRIMARY_CLS} ${className}`}
     >
       {children}
-    </button>
+    </a>
   );
 }
 
-function SecondaryButton({
-  children,
-  className = "",
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+function SecondaryLink({ children, href, className = "", external }: LinkBtnProps) {
+  const ext = external ?? /^https?:/.test(href);
   return (
-    <button
-      {...props}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-6 py-3.5 text-sm font-semibold text-ink transition-all hover:border-ink/30 hover:bg-surface ${className}`}
+    <a
+      href={href}
+      {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={`${SECONDARY_CLS} ${className}`}
     >
       {children}
-    </button>
+    </a>
   );
 }
+
+const SIGNUP_URL = "https://motor-em-dia.vercel.app/cadastro";
+const LOGIN_URL = "https://motor-em-dia.vercel.app/login";
+const WHATSAPP_URL =
+  "https://wa.me/5531971464759?text=Ol%C3%A1%21%20Tenho%20interesse%20no%20Motor%20em%20Dia%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20sistema%20para%20oficinas.";
 
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -130,6 +143,7 @@ function Index() {
       <SecuritySection />
       <FinalCTA />
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 }
@@ -151,8 +165,26 @@ function Header() {
           <a href="#sistema" className="hover:text-ink">O Sistema</a>
         </nav>
         <div className="flex items-center gap-2">
-          <a href="#login" className="hidden text-sm font-semibold text-ink hover:text-primary sm:inline">Entrar</a>
-          <PrimaryButton className="px-4 py-2.5 text-xs">Teste 14 dias grátis</PrimaryButton>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-semibold text-ink-soft transition-colors hover:border-emerald-500/40 hover:text-emerald-600 sm:inline-flex"
+          >
+            <MessageCircle className="h-3.5 w-3.5 text-emerald-600" />
+            WhatsApp
+          </a>
+          <a
+            href={LOGIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden text-sm font-semibold text-ink hover:text-primary sm:inline"
+          >
+            Entrar
+          </a>
+          <PrimaryLink href={SIGNUP_URL} className="px-4 py-2.5 text-xs">
+            Teste 14 dias grátis
+          </PrimaryLink>
         </div>
       </Container>
     </header>
@@ -180,10 +212,10 @@ function Hero() {
               organizado e ordens de serviço digitais.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryButton>
+              <PrimaryLink href={SIGNUP_URL}>
                 Teste grátis por 14 dias <ArrowRight className="h-4 w-4" />
-              </PrimaryButton>
-              <SecondaryButton>Quero ver funcionando</SecondaryButton>
+              </PrimaryLink>
+              <SecondaryLink href="#calculadora" external={false}>Quero ver funcionando</SecondaryLink>
             </div>
             <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
               {["14 dias grátis", "Sem cartão de crédito", "Cancelamento a qualquer momento"].map((t) => (
@@ -449,7 +481,7 @@ function CalculatorSection() {
               <p className="mt-5 text-sm leading-relaxed text-white/70">
                 Com lembretes automáticos, boa parte desse valor volta a entrar no caixa todo mês.
               </p>
-              <PrimaryButton className="mt-6 w-full">Quero recuperar esse faturamento</PrimaryButton>
+              <PrimaryLink href={SIGNUP_URL} className="mt-6 w-full">Quero recuperar esse faturamento</PrimaryLink>
             </div>
           </div>
         </div>
@@ -572,11 +604,23 @@ function FinalCTA() {
             <p className="mt-5 text-lg text-white/75">
               Comece hoje a transformar manutenção em relacionamento e relacionamento em faturamento.
             </p>
-            <div className="mt-8 flex justify-center">
-              <PrimaryButton className="px-8 py-4 text-base">
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <PrimaryLink href={SIGNUP_URL} className="px-8 py-4 text-base">
                 Quero testar grátis <ArrowRight className="h-4 w-4" />
-              </PrimaryButton>
+              </PrimaryLink>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                <MessageCircle className="h-4 w-4 text-emerald-400" />
+                Falar no WhatsApp
+              </a>
             </div>
+            <p className="mt-3 text-sm text-white/60">
+              Prefere falar com a gente? Chame no WhatsApp.
+            </p>
             <ul className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/70">
               {["14 dias grátis", "Sem cartão", "Cancele quando quiser", "Suporte em português"].map((t) => (
                 <li key={t} className="inline-flex items-center gap-2">
@@ -603,10 +647,33 @@ function Footer() {
           <span className="text-sm text-ink-soft">© 2026 Motor em Dia. Todos os direitos reservados.</span>
         </div>
         <div className="flex items-center gap-6 text-sm font-medium text-ink">
-          <a href="#login" className="hover:text-primary">Entrar</a>
-          <a href="#signup" className="hover:text-primary">Criar conta grátis</a>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 hover:text-emerald-600"
+          >
+            <MessageCircle className="h-4 w-4 text-emerald-600" />
+            WhatsApp
+          </a>
+          <a href={LOGIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary">Entrar</a>
+          <a href={SIGNUP_URL} target="_blank" rel="noopener noreferrer" className="hover:text-primary">Criar conta grátis</a>
         </div>
       </Container>
     </footer>
+  );
+}
+
+function WhatsAppFloat() {
+  return (
+    <a
+      href={WHATSAPP_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Falar no WhatsApp"
+      className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-elevated transition-transform hover:scale-105 hover:bg-emerald-600"
+    >
+      <MessageCircle className="h-6 w-6" strokeWidth={2.2} />
+    </a>
   );
 }
