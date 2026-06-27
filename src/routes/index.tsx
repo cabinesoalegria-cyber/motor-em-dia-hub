@@ -481,7 +481,7 @@ function CalculatorSection() {
               <p className="mt-5 text-sm leading-relaxed text-white/70">
                 Com lembretes automáticos, boa parte desse valor volta a entrar no caixa todo mês.
               </p>
-              <PrimaryButton className="mt-6 w-full">Quero recuperar esse faturamento</PrimaryButton>
+              <PrimaryLink href={SIGNUP_URL} className="mt-6 w-full">Quero recuperar esse faturamento</PrimaryLink>
             </div>
           </div>
         </div>
