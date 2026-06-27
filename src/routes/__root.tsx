@@ -81,6 +81,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Sistema de gestão para oficinas mecânicas: lembretes automáticos, OS digitais, histórico de veículos e mais." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Motor em Dia — Nunca mais perca uma revisão" },
+      { name: "twitter:title", content: "Motor em Dia — Nunca mais perca uma revisão" },
+      { property: "og:description", content: "Sistema de gestão para oficinas mecânicas: lembretes automáticos, OS digitais, histórico de veículos e mais." },
+      { name: "twitter:description", content: "Sistema de gestão para oficinas mecânicas: lembretes automáticos, OS digitais, histórico de veículos e mais." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/238558ca-a37b-41f6-be19-ae573d45a3c8/id-preview-0434877b--5171eb46-6a6b-45f2-9e98-74a637f32b5e.lovable.app-1782530327406.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/238558ca-a37b-41f6-be19-ae573d45a3c8/id-preview-0434877b--5171eb46-6a6b-45f2-9e98-74a637f32b5e.lovable.app-1782530327406.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
