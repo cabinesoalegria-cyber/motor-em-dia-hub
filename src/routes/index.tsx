@@ -604,11 +604,23 @@ function FinalCTA() {
             <p className="mt-5 text-lg text-white/75">
               Comece hoje a transformar manutenção em relacionamento e relacionamento em faturamento.
             </p>
-            <div className="mt-8 flex justify-center">
-              <PrimaryButton className="px-8 py-4 text-base">
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <PrimaryLink href={SIGNUP_URL} className="px-8 py-4 text-base">
                 Quero testar grátis <ArrowRight className="h-4 w-4" />
-              </PrimaryButton>
+              </PrimaryLink>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                <MessageCircle className="h-4 w-4 text-emerald-400" />
+                Falar no WhatsApp
+              </a>
             </div>
+            <p className="mt-3 text-sm text-white/60">
+              Prefere falar com a gente? Chame no WhatsApp.
+            </p>
             <ul className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/70">
               {["14 dias grátis", "Sem cartão", "Cancele quando quiser", "Suporte em português"].map((t) => (
                 <li key={t} className="inline-flex items-center gap-2">
