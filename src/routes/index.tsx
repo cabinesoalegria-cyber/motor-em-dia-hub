@@ -165,8 +165,26 @@ function Header() {
           <a href="#sistema" className="hover:text-ink">O Sistema</a>
         </nav>
         <div className="flex items-center gap-2">
-          <a href="#login" className="hidden text-sm font-semibold text-ink hover:text-primary sm:inline">Entrar</a>
-          <PrimaryButton className="px-4 py-2.5 text-xs">Teste 14 dias grátis</PrimaryButton>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-semibold text-ink-soft transition-colors hover:border-emerald-500/40 hover:text-emerald-600 sm:inline-flex"
+          >
+            <MessageCircle className="h-3.5 w-3.5 text-emerald-600" />
+            WhatsApp
+          </a>
+          <a
+            href={LOGIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden text-sm font-semibold text-ink hover:text-primary sm:inline"
+          >
+            Entrar
+          </a>
+          <PrimaryLink href={SIGNUP_URL} className="px-4 py-2.5 text-xs">
+            Teste 14 dias grátis
+          </PrimaryLink>
         </div>
       </Container>
     </header>
