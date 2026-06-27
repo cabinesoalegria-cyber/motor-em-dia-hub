@@ -161,7 +161,7 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-surface to-background py-16 lg:py-24">
+    <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-surface to-background py-10 lg:py-16">
       <div className="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
@@ -277,7 +277,7 @@ function FeatureBar() {
     { i: Wallet, t: "Controle financeiro" },
   ];
   return (
-    <section className="border-b border-border bg-card py-10">
+    <section className="border-b border-border bg-card py-8">
       <Container>
         <div className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:grid-cols-6">
           {items.map(({ i: Icon, t }) => (
@@ -302,7 +302,7 @@ function ProblemSection() {
     { i: MessagesSquare, t: "WhatsApp virou bagunça", d: "Clientes, fornecedores, família — tudo misturado. Impossível acompanhar quem precisa retornar e quando." },
   ];
   return (
-    <section id="problema" className="bg-surface py-20 lg:py-28">
+    <section id="problema" className="bg-surface py-16 lg:py-20">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>O problema</SectionLabel>
@@ -337,7 +337,7 @@ function SolutionSection() {
     { i: TrendingUp, t: "Retorno e fidelização", d: "Sua oficina chama o cliente na hora certa e aumenta o faturamento sem depender de novos anúncios." },
   ];
   return (
-    <section id="solucao" className="bg-background py-20 lg:py-28">
+    <section id="solucao" className="bg-background py-16 lg:py-20">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>A solução</SectionLabel>
@@ -377,7 +377,7 @@ function BenefitsSection() {
     { i: LayoutDashboard, t: "Gestão mais eficiente", d: "Dashboard completo: OS abertas, revisões próximas e faturamento do mês em uma tela só." },
   ];
   return (
-    <section id="beneficios" className="bg-surface py-20 lg:py-28">
+    <section id="beneficios" className="bg-surface py-16 lg:py-20">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>Benefícios</SectionLabel>
@@ -413,7 +413,7 @@ function CalculatorSection() {
     n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 
   return (
-    <section id="calculadora" className="bg-background py-20 lg:py-28">
+    <section id="calculadora" className="bg-background py-16 lg:py-20">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>Calculadora</SectionLabel>
@@ -496,7 +496,7 @@ function SystemSection() {
     { i: LayoutDashboard, t: "Dashboard gerencial", d: "A oficina inteira em uma tela só." },
   ];
   return (
-    <section id="sistema" className="bg-surface py-20 lg:py-28">
+    <section id="sistema" className="bg-surface py-16 lg:py-20">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>O sistema</SectionLabel>
@@ -531,7 +531,7 @@ function SecuritySection() {
     { i: Sparkles, t: "Interface simples", d: "Pronto no primeiro dia" },
   ];
   return (
-    <section className="bg-background py-20 lg:py-28">
+    <section className="bg-background py-16 lg:py-20">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <SectionLabel>Segurança</SectionLabel>
@@ -560,7 +560,7 @@ function SecuritySection() {
 
 function FinalCTA() {
   return (
-    <section className="bg-surface py-20 lg:py-28">
+    <section className="bg-surface py-16 lg:py-20">
       <Container>
         <div className="relative overflow-hidden rounded-3xl bg-ink px-7 py-14 text-center text-white shadow-elevated sm:px-12 lg:py-20">
           <div className="pointer-events-none absolute -left-20 top-0 h-72 w-72 rounded-full bg-primary/30 blur-3xl" />
@@ -594,7 +594,7 @@ function FinalCTA() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border bg-background py-10">
+    <footer className="border-t border-border bg-background py-8">
       <Container className="flex flex-col items-center justify-between gap-5 sm:flex-row">
         <div className="flex items-center gap-2">
           <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
