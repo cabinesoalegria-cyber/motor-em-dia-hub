@@ -143,6 +143,7 @@ function Index() {
       <SecuritySection />
       <FinalCTA />
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 }
