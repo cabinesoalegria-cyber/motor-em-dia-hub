@@ -212,10 +212,10 @@ function Hero() {
               organizado e ordens de serviço digitais.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <PrimaryButton>
+              <PrimaryLink href={SIGNUP_URL}>
                 Teste grátis por 14 dias <ArrowRight className="h-4 w-4" />
-              </PrimaryButton>
-              <SecondaryButton>Quero ver funcionando</SecondaryButton>
+              </PrimaryLink>
+              <SecondaryLink href="#calculadora" external={false}>Quero ver funcionando</SecondaryLink>
             </div>
             <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
               {["14 dias grátis", "Sem cartão de crédito", "Cancelamento a qualquer momento"].map((t) => (
