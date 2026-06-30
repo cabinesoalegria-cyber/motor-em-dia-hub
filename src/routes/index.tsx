@@ -434,9 +434,9 @@ function BenefitsSection() {
 }
 
 function CalculatorSection() {
-  const [clients, setClients] = useState(120);
-  const [ticket, setTicket] = useState(450);
-  const [pct, setPct] = useState(40);
+  const [clients, setClients] = useState(30);
+  const [ticket, setTicket] = useState(180);
+  const [pct, setPct] = useState(50);
 
   const lost = useMemo(() => Math.round((clients * ticket * pct) / 100), [clients, ticket, pct]);
   const yearly = lost * 12;
@@ -444,25 +444,101 @@ function CalculatorSection() {
   const fmt = (n: number) =>
     n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 
+  const naoVoltam = Math.round(pct / 10);
+
+  const presets = [
+    { label: "Oficina pequena", clients: 20, ticket: 150, pct: 40 },
+    { label: "Oficina média", clients: 60, ticket: 220, pct: 50 },
+    { label: "Oficina movimentada", clients: 120, ticket: 300, pct: 60 },
+  ];
+
+  const applyPreset = (p: { clients: number; ticket: number; pct: number }) => {
+    setClients(p.clients);
+    setTicket(p.ticket);
+    setPct(p.pct);
+  };
+
   return (
     <section id="calculadora" className="bg-background py-16 lg:py-20">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
-          <SectionLabel>Calculadora</SectionLabel>
+          <SectionLabel>Simulação</SectionLabel>
           <h2 className="mt-4 text-3xl font-extrabold text-ink sm:text-4xl">
-            Calcule quanto faturamento você está perdendo agora
+            Veja quanto sua oficina pode estar perdendo todo mês
           </h2>
           <p className="mt-4 text-lg text-ink-soft">
-            Ajuste os valores e veja a projeção de faturamento que pode ser recuperado com lembretes automáticos.
+            Muitos clientes não voltam porque esquecem da próxima revisão ou porque ninguém da oficina chama no momento certo. Faça uma simulação simples e veja o impacto disso no seu caixa.
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
           <Card className="p-7">
-            <div className="space-y-7">
-              <Field label="Clientes por mês" value={clients} suffix="clientes" min={10} max={500} step={10} onChange={setClients} />
-              <Field label="Ticket médio" value={ticket} prefix="R$" min={50} max={2000} step={50} onChange={setTicket} />
-              <Field label="% de clientes que não retornam" value={pct} suffix="%" min={5} max={90} step={5} onChange={setPct} />
+            <div className="space-y-8">
+              <CalcField
+                icon={Users}
+                title="Quantos clientes sua oficina atende por mês?"
+                help="Pode ser uma média. Pense nos clientes que fazem troca de óleo, revisão, freios, suspensão ou outros serviços."
+                display={`${clients} clientes por mês`}
+                min={10}
+                max={300}
+                step={5}
+                value={clients}
+                onChange={setClients}
+                minLabel="Poucos clientes"
+                maxLabel="Muitos clientes"
+              />
+              <CalcField
+                icon={Wallet}
+                title="Quanto cada cliente costuma gastar em média?"
+                help="Use uma média dos serviços mais comuns da sua oficina. Não precisa ser exato. Também conhecido como ticket médio."
+                display={`${fmt(ticket)} por cliente`}
+                min={50}
+                max={2000}
+                step={10}
+                value={ticket}
+                onChange={setTicket}
+                minLabel="Serviço simples"
+                maxLabel="Serviço mais caro"
+              />
+              <CalcField
+                icon={UserX}
+                title="De cada 10 clientes, quantos não voltam depois?"
+                help="Muitos clientes não retornam porque esquecem da revisão ou porque a oficina não lembra eles na hora certa."
+                display={`${naoVoltam} de cada 10 clientes não voltam`}
+                min={10}
+                max={90}
+                step={10}
+                value={pct}
+                onChange={setPct}
+                minLabel="Poucos somem"
+                maxLabel="Muitos somem"
+              />
+
+              <div className="rounded-xl border border-border bg-surface p-5">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary">Entenda a conta</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink">
+                  Se sua oficina atende <strong>{clients} clientes por mês</strong>, cada cliente gasta em média <strong>{fmt(ticket)}</strong> e <strong>{naoVoltam} de cada 10</strong> não voltam, você pode estar deixando de faturar cerca de <strong>{fmt(lost)} por mês</strong>.
+                </p>
+                <p className="mt-3 text-xs leading-relaxed text-ink-soft">
+                  A ideia não é ser uma conta perfeita, mas mostrar o tamanho da oportunidade que pode estar escapando todos os meses.
+                </p>
+              </div>
+
+              <div>
+                <p className="text-sm font-semibold text-ink">Escolha um exemplo parecido com sua oficina:</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {presets.map((p) => (
+                    <button
+                      key={p.label}
+                      type="button"
+                      onClick={() => applyPreset(p)}
+                      className="rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-ink transition-all hover:border-primary hover:text-primary"
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </Card>
 
@@ -470,18 +546,32 @@ function CalculatorSection() {
             <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/30 blur-3xl" />
             <div className="relative">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider">
-                <PieChart className="h-3.5 w-3.5" /> Estimativa
+                <PieChart className="h-3.5 w-3.5" /> Simulação
               </span>
-              <p className="mt-5 text-sm text-white/70">Faturamento perdido por mês</p>
+              <p className="mt-5 text-base text-white/80">Sua oficina pode estar deixando de faturar</p>
               <p className="mt-2 font-display text-5xl font-extrabold text-primary">{fmt(lost)}</p>
+              <p className="mt-1 text-sm text-white/60">por mês</p>
+
               <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4">
-                <p className="text-sm text-white/70">Em 12 meses</p>
+                <p className="text-sm text-white/70">Em 12 meses, isso pode virar</p>
                 <p className="mt-1 font-display text-2xl font-bold">{fmt(yearly)}</p>
               </div>
-              <p className="mt-5 text-sm leading-relaxed text-white/70">
-                Com lembretes automáticos, boa parte desse valor volta a entrar no caixa todo mês.
+
+              <p className="mt-5 text-sm leading-relaxed text-white/75">
+                Esse dinheiro pode estar sendo perdido porque o cliente esquece da próxima revisão, troca de óleo ou manutenção preventiva. Com o Motor em Dia, sua oficina organiza os clientes e envia lembretes para chamar cada um na hora certa.
               </p>
-              <PrimaryLink href={SIGNUP_URL} className="mt-6 w-full">Quero recuperar esse faturamento</PrimaryLink>
+
+              <ul className="mt-5 space-y-2 text-sm text-white/80">
+                <li className="flex items-start gap-2"><Bell className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Lembrete da próxima revisão</li>
+                <li className="flex items-start gap-2"><MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Chamada do cliente pelo WhatsApp</li>
+                <li className="flex items-start gap-2"><History className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Histórico de veículos organizado</li>
+              </ul>
+
+              <PrimaryLink href={SIGNUP_URL} className="mt-6 w-full">Quero recuperar esses clientes</PrimaryLink>
+
+              <p className="mt-4 text-xs leading-relaxed text-white/60">
+                O Motor em Dia ajuda sua oficina a não depender da memória. O sistema lembra quem precisa voltar, quando chamar e qual serviço oferecer.
+              </p>
             </div>
           </div>
         </div>
@@ -490,29 +580,38 @@ function CalculatorSection() {
   );
 }
 
-function Field({
-  label, value, onChange, min, max, step, prefix, suffix,
+function CalcField({
+  icon: Icon, title, help, display, value, onChange, min, max, step, minLabel, maxLabel,
 }: {
-  label: string; value: number; onChange: (n: number) => void;
-  min: number; max: number; step: number; prefix?: string; suffix?: string;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string; help: string; display: string;
+  value: number; onChange: (n: number) => void;
+  min: number; max: number; step: number;
+  minLabel: string; maxLabel: string;
 }) {
   return (
     <div>
-      <div className="mb-2 flex items-center justify-between">
-        <label className="text-sm font-semibold text-ink">{label}</label>
-        <span className="rounded-lg bg-surface px-3 py-1 text-sm font-bold text-ink">
-          {prefix ? `${prefix} ` : ""}{value.toLocaleString("pt-BR")}{suffix ? ` ${suffix}` : ""}
+      <div className="flex items-start gap-3">
+        <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          <Icon className="h-4 w-4" />
         </span>
+        <div className="flex-1">
+          <label className="block text-sm font-semibold text-ink">{title}</label>
+          <p className="mt-1 text-xs leading-relaxed text-ink-soft">{help}</p>
+        </div>
+      </div>
+      <div className="mt-3 inline-flex rounded-lg bg-surface px-3 py-1.5 text-sm font-bold text-ink">
+        {display}
       </div>
       <input
         type="range"
         min={min} max={max} step={step} value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="h-2 w-full cursor-pointer appearance-none rounded-full bg-surface-alt accent-primary"
+        className="mt-3 h-2 w-full cursor-pointer appearance-none rounded-full bg-surface-alt accent-primary"
       />
       <div className="mt-1 flex justify-between text-xs text-ink-soft">
-        <span>{prefix ? `${prefix} ` : ""}{min}{suffix ? ` ${suffix}` : ""}</span>
-        <span>{prefix ? `${prefix} ` : ""}{max}{suffix ? ` ${suffix}` : ""}</span>
+        <span>{minLabel}</span>
+        <span>{maxLabel}</span>
       </div>
     </div>
   );
