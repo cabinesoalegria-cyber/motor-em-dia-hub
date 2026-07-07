@@ -102,8 +102,8 @@ function SecondaryLink({ children, href, className = "", external }: LinkBtnProp
   );
 }
 
-const SIGNUP_URL = "https://motor-em-dia.vercel.app/cadastro";
-const LOGIN_URL = "https://motor-em-dia.vercel.app/login";
+const SIGNUP_URL = "https://app.motoremdia.com.br/login";
+const LOGIN_URL = "https://app.motoremdia.com.br/login";
 const WHATSAPP_URL =
   "https://wa.me/5531975241841?text=Ol%C3%A1%21%20Tenho%20interesse%20no%20Motor%20em%20Dia%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20sistema%20para%20oficinas.";
 
